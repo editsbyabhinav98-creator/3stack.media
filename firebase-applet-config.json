@@ -1,0 +1,19 @@
+import { GoogleGenAI } from "@google/genai";
+
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
+
+export const generateCaseStudy = async (title: string) => {
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-3-flash-preview",
+      contents: `Generate a high-end, professional "Cyber-Luxury" case study description for a media project titled "${title}". 
+      The description should be concise (2-3 sentences), sophisticated, and emphasize digital craftsmanship and innovation. 
+      Do not include any headers or labels, just the description text.`,
+    });
+
+    return response.text || "A bespoke digital experience crafted with precision and a focus on high-end media aesthetics.";
+  } catch (error) {
+    console.error("Error generating case study:", error);
+    return "A bespoke digital experience crafted with precision and a focus on high-end media aesthetics.";
+  }
+};
